@@ -1,5 +1,6 @@
 import React from 'react'
 import 'isomorphic-fetch'
+import Link from 'next/link'
 import Layout from '../components/Layout'
 
 export default class extends React.Component {
@@ -14,7 +15,14 @@ export default class extends React.Component {
         <h1>Latest News</h1>
 
         { this.props.stories.map((story) => (
-          <h2><a href={ story.url }>{ story.title }</a></h2>
+          <div>
+            <h2><a href={ story.url }>{ story.title }</a></h2>
+            <p>
+              <Link prefetch href={ `/story?id${story.id}` }><a>
+                { story.comments_count } comments
+              </a></Link>
+            </p>
+          </div>
         )) }
 
         <style jsx>{`
@@ -33,7 +41,7 @@ export default class extends React.Component {
         font-weight: 200;
         font-size: 16px;
         color: #181818;
-        border-bottom: 1px solid #bdc3c7;
+        // border-bottom: 1px solid #bdc3c7;
       }
               a {
         text-decoration: none;
